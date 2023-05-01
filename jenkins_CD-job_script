@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone Manifest Files') {
+            steps {
+                git branch: 'main', credentialsId: 'GIT', url: 'https://github.com/ranjan-satya/epam_training_project'
+            }
+        }
+        stage('Deploy in Cluster') {
+            steps {
+                sh 'kubectl apply -f maven-web-app-deploy.yml'
+            }
+        }
+    }
+}
